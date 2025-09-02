@@ -10,7 +10,7 @@ export function Welcome() {
             <img
               src={logoLight}
               alt="React Router"
-              className="block w-full dark:hidden"
+              className="block w-full blue:hidden"
             />
             <img
               src={logoDark}
