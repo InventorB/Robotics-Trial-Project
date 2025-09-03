@@ -23,8 +23,8 @@ export function Main() {
 
 export function Topbar() {
     return(
-    <div className= "bg-blue-600 p-3" >
-        <a className = "text-gray-900 text-lg" href="#home">Home</a>
+    <div className= "bg-blue-700 p-3" >
+        <a className = "text-gray-900 text-lg text-white" href="#home">Home</a>
         <FullscreenIcon className="float-right bg-gray-900 rounded-lg"/>
         <DarkModeIcon className="float-right bg-gray-900 rounded-lg mx-2"/>
     </div>
