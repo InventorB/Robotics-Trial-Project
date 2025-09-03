@@ -4,8 +4,8 @@ import { Main } from "../braden/main";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Robot Controls" },
+    { name: "description", content: "The robot control suite." },
   ];
 }
 
