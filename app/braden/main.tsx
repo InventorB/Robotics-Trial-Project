@@ -45,16 +45,13 @@ export function BottomBar() {
 }
 
 export function FullscreenButton() {
-    const [isFullScreen, setFullScreen] = useState(false);
-    
   const toggleFullscreen = () => {
-    console.log("Toggling fullscreen.");
-    if (!isFullScreen) {
-    document.documentElement.requestFullscreen();
+  console.log("Toggling fullscreen.");
+  if (document.fullscreenElement == null) {
+  document.documentElement.requestFullscreen();
   } else {
-    document.exitFullscreen();
+  document.exitFullscreen();
   }
-  setFullScreen(!isFullScreen);
 };
   
   return(
@@ -63,4 +60,5 @@ export function FullscreenButton() {
   </button>
   )
 }
+
 
