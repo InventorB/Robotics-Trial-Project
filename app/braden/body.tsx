@@ -5,6 +5,10 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 
+//mui presets
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
 
 const MIN = 0;
 const MAX = 100;
@@ -19,6 +23,9 @@ export function Body() {
             </div>
             <div className="flex-[1_1_0%] min-w-0 overflow-hidden p-4 bg-red-300">
                 <h1 className="flex items-center justify-center pb-6 text-xl">Controls</h1>
+                <div className="flex items-center justify-center pb-6">
+                    <Presets />
+                </div>
                 <div className="flex items-center justify-center">
                     <MultiSliders />
                 </div>
@@ -55,10 +62,10 @@ export default function MultiSliders() {
   };
 
   return (
-    <Box sx={{ width: 350, display: 'flex', flexDirection: 'column', gap: 4 }}>
+    <Box sx={{ width: 350, display: 'flex', flexDirection: 'column', gap: 2 }}>
       {values.map((val, index) => (
         <Box key={index}>
-          <Typography variant="subtitle2">Slider {index + 1}</Typography>
+          <Typography variant="subtitle2">Control #{index + 1}</Typography>
           <Slider
             step={10}
             value={val}
@@ -89,3 +96,12 @@ export default function MultiSliders() {
   );
 }
 
+export function Presets() {
+    return(
+        <div className="flex flex- gap-4">
+            <Button variant="contained">ALL 0%</Button>
+            <Button variant="contained">ALL 100%</Button>
+        </div>
+
+    )
+};
