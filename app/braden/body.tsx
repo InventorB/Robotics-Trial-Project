@@ -23,9 +23,6 @@ export function Body() {
             </div>
             <div className="flex-[1_1_0%] min-w-0 overflow-hidden p-4 bg-red-300">
                 <h1 className="flex items-center justify-center pb-6 text-xl">Controls</h1>
-                <div className="flex items-center justify-center pb-6">
-                    <Presets />
-                </div>
                 <div className="flex items-center justify-center">
                     <MultiSliders />
                 </div>
@@ -60,9 +57,19 @@ export default function MultiSliders() {
       return copy;
     });
   };
+  const changeAll = (newValue: number) => {
+    setValues(Array(SLIDER_COUNT).fill(newValue));
+    }
 
   return (
     <Box sx={{ width: 350, display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Box sx={{display: "flex", flexDirection: "row"}}>
+            <Button variant="contained" onClick={() => changeAll(0)}>0%</Button>
+            <Button variant="contained" onClick={() => changeAll(25)}>25%</Button>
+            <Button variant="contained" onClick={() => changeAll(50)}>50%</Button>
+            <Button variant="contained" onClick={() => changeAll(75)}>75%</Button>
+            <Button variant="contained" onClick={() => changeAll(100)}>100%</Button>
+      </Box>
       {values.map((val, index) => (
         <Box key={index}>
           <Typography variant="subtitle2">Control #{index + 1}</Typography>
@@ -95,13 +102,3 @@ export default function MultiSliders() {
     </Box>
   );
 }
-
-export function Presets() {
-    return(
-        <div className="flex flex- gap-4">
-            <Button variant="contained">ALL 0%</Button>
-            <Button variant="contained">ALL 100%</Button>
-        </div>
-
-    )
-};
