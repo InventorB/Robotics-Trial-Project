@@ -10,8 +10,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
 
-const MIN = 0;
-const MAX = 100;
+
 const SLIDER_COUNT = 5;
 
 export function Body() {
@@ -46,20 +45,24 @@ export function Video() {
 }
 export default function MultiSliders() {
   // keep all slider values in one array
-  const [values, setValues] = React.useState<number[]>(
-    Array(SLIDER_COUNT).fill(MIN) // [0,0,0,0,0]
+  const [grid, setGrid] = React.useState(
+    Array.from({ length: 5 }, () => [0, 50, 75])
   );
 
-  const handleChange = (index: number, newValue: number) => {
-    setValues((prev) => {
-      const copy = [...prev];
-      copy[index] = newValue;
-      return copy;
+const handleChange = (index: number, newValue: number) =>
+    setGrid((prev) => {
+        const copy = [...prev];
+        copy[index] = [...copy[index]];
+        copy[index][1] = newValue;
+        return copy;
     });
-  };
+
+
   const changeAll = (newValue: number) => {
-    setValues(Array(SLIDER_COUNT).fill(newValue));
+    for(var i = 0; i < SLIDER_COUNT; i++) {
+      handleChange(i, newValue);
     }
+    };
 
   return (
     <Box sx={{ width: 350, display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -70,31 +73,32 @@ export default function MultiSliders() {
             <Button variant="contained" onClick={() => changeAll(75)}>75%</Button>
             <Button variant="contained" onClick={() => changeAll(100)}>100%</Button>
       </Box>
-      {values.map((val, index) => (
-        <Box key={index}>
-          <Typography variant="subtitle2">Control #{index + 1}</Typography>
+      {grid.map((row, rowIndex) => (
+        <Box key={rowIndex}>
+          <Typography variant="subtitle2">Control #{rowIndex + 1}</Typography>
           <Slider
-            step={10}
-            value={val}
+            step={2.5}
+            value={row[1]}
             valueLabelDisplay="auto"
-            min={MIN}
-            max={MAX}
-            onChange={(_, newValue) => handleChange(index, newValue as number)}
+            min={row[0]}
+            max={row[2]}
+
+            onChange={(_, newValue) => handleChange(rowIndex, newValue as number)}
           />
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography
               variant="body2"
-              onClick={() => handleChange(index, MIN)}
+              onClick={() => handleChange(rowIndex, row[0])}
               sx={{ cursor: 'pointer' }}
             >
-              {MIN} min
+              {row[0]} min
             </Typography>
             <Typography
               variant="body2"
-              onClick={() => handleChange(index, MAX)}
+              onClick={() => handleChange(rowIndex, row[2])}
               sx={{ cursor: 'pointer' }}
             >
-              {MAX} max
+              {row[2]} max
             </Typography>
           </Box>
         </Box>
