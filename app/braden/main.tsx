@@ -4,7 +4,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import InfoIcon from '@mui/icons-material/Info';
 
 // previos files
-import { Welcome } from "../welcome/welcome";
+import { Welcome } from "../welcome/Welcome";
 import { Body } from "../braden/body";
 // react hooks
 import React, { useState, useEffect } from "react";
