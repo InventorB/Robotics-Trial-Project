@@ -1,5 +1,6 @@
 // images
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import SettingsIcon from "@mui/icons-material/Settings";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/DarkMode";
@@ -29,6 +30,7 @@ export function Topbar() {
     <div className= "bg-blue-700 p-3 flex items-center" >
         <a className = "text-gray-900 text-lg text-white" href="#home">Mission Control Home</a>
         <div className="ml-auto flex items-center gap-3">
+          <SettingsButton />
           <FullscreenButton />
         </div >
     </div>
@@ -60,5 +62,15 @@ export function FullscreenButton() {
   </button>
   )
 }
-
+export function SettingsButton() {
+  const toggleSettings = () => {
+  console.log("Toggling settings.");
+};
+  
+  return(
+  <button onClick={toggleSettings}>
+  <SettingsIcon className="inline-flex"/>
+  </button>
+  )
+}
 
