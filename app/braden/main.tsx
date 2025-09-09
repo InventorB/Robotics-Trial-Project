@@ -1,9 +1,8 @@
 // images
-import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import SettingsIcon from "@mui/icons-material/Settings";
-import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/DarkMode";
+import InfoIcon from '@mui/icons-material/Info';
+
 // previos files
 import { Welcome } from "../welcome/welcome";
 import { Body } from "../braden/body";
@@ -17,21 +16,25 @@ import React, { useState, useEffect } from "react";
 // Main component that includes Topbar and Body
 export function Main() {
   const [settingsEnabled, setSettingsEnabled] = React.useState(false);
+  const [bottbarEnabled, setbottbarEnabled] = React.useState(true);
   return (
     /* needs to return a single parent element */
     <div>
-    <Topbar onToggleSettings={() => setSettingsEnabled((s) => !s)} />
+    <Topbar onToggleSettings={() => setSettingsEnabled((s) => !s)} onToggleBSettings={() => setbottbarEnabled((s) => !s)}  />
     <Body settingsEnabled={settingsEnabled} />
+    {bottbarEnabled ? (
     <BottomBar />
+    ) : null }
     </div>
   );
 }
 
-export function Topbar({ onToggleSettings }: { onToggleSettings: () => void }) {
+export function Topbar({ onToggleSettings, onToggleBSettings }: { onToggleSettings: () => void; onToggleBSettings: () => void }) {
     return(
     <div className= "bg-blue-700 p-3 flex items-center" >
         <a className = "text-gray-900 text-lg text-white" href="#home">Mission Control Home</a>
-        <div className="ml-auto flex items-center gap-3">
+        <div className="ml-auto flex items-center gap-7">
+          <BottBarButton onToggleBSettings={onToggleBSettings} />
           <SettingsButton onToggleSettings={onToggleSettings} />
           <FullscreenButton />
         </div >
@@ -60,7 +63,7 @@ export function FullscreenButton() {
   
   return(
   <button onClick={toggleFullscreen}>
-  <FullscreenIcon className="inline-flex"/>
+  <AspectRatioIcon className="inline-flex"/>
   </button>
   )
 }
@@ -77,3 +80,15 @@ export function SettingsButton({ onToggleSettings }: { onToggleSettings: () => v
   )
 }
 
+export function BottBarButton({ onToggleBSettings }: { onToggleBSettings: () => void }) {
+  const toggleSettings = () => {
+  console.log("Toggling settings.");
+  onToggleBSettings();
+};
+  
+  return(
+  <button onClick={toggleSettings}>
+  <InfoIcon className="inline-flex"/>
+  </button>
+  )
+}
