@@ -79,12 +79,12 @@ const updateMin = (index: number, differential: number) =>
     });
   return (
     <Box sx={{ width: 350, display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <Box sx={{display: "flex", flexDirection: "row"}}>
-            <Button variant="contained" onClick={() => changeAll(0)}>0%</Button>
-            <Button variant="contained" onClick={() => changeAll(25)}>25%</Button>
-            <Button variant="contained" onClick={() => changeAll(50)}>50%</Button>
-            <Button variant="contained" onClick={() => changeAll(75)}>75%</Button>
-            <Button variant="contained" onClick={() => changeAll(100)}>100%</Button>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button variant="contained" onClick={() => changeAll(0)}>0</Button>
+            <Button variant="contained" onClick={() => changeAll(25)}>25</Button>
+            <Button variant="contained" onClick={() => changeAll(50)}>50</Button>
+            <Button variant="contained" onClick={() => changeAll(75)}>75</Button>
+            <Button variant="contained" onClick={() => changeAll(100)}>100</Button>
       </Box>
       {grid.map((row, rowIndex) => (
         <Box key={rowIndex}>
