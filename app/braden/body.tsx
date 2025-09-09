@@ -13,7 +13,7 @@ import Stack from '@mui/material/Stack';
 
 const SLIDER_COUNT = 5;
 
-export function Body() {
+export function Body({ settingsEnabled }: { settingsEnabled: boolean }) {
     return (
         <div className="flex h-screen">
             <div className="flex-[2_1_0%] min-w-0 overflow-hidden p-4 bg-blue-300">
@@ -23,7 +23,7 @@ export function Body() {
             <div className="flex-[1_1_0%] min-w-0 overflow-hidden p-4 bg-red-300">
                 <h1 className="flex items-center justify-center pb-6 text-xl">Controls</h1>
                 <div className="flex items-center justify-center">
-                    <MultiSliders />
+                    <MultiSliders settingsEnabled={settingsEnabled} />
                 </div>
             </div>
         
@@ -43,12 +43,11 @@ export function Video() {
         <iframe width="100%" height="80%" src="https://www.youtube.com/embed/4TIpitPIsPA?si=VJkDSUyuFRcKcYtO?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
     )
 }
-export default function MultiSliders() {
+export default function MultiSliders({ settingsEnabled }: { settingsEnabled: boolean }) {
   // keep all slider values in one array
   const [grid, setGrid] = React.useState(
     Array.from({ length: SLIDER_COUNT }, () => [0, 50, 75])
   );
-  const [settingsEnabled, setSettings] = React.useState(true);
 
 const handleChange = (index: number, newValue: number) =>
     setGrid((prev) => {

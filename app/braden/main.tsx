@@ -13,24 +13,26 @@ import React, { useState, useEffect } from "react";
 
 
 
+
 // Main component that includes Topbar and Body
 export function Main() {
+  const [settingsEnabled, setSettingsEnabled] = React.useState(false);
   return (
     /* needs to return a single parent element */
     <div>
-    <Topbar />
-    <Body/>
+    <Topbar onToggleSettings={() => setSettingsEnabled((s) => !s)} />
+    <Body settingsEnabled={settingsEnabled} />
     <BottomBar />
     </div>
   );
 }
 
-export function Topbar() {
+export function Topbar({ onToggleSettings }: { onToggleSettings: () => void }) {
     return(
     <div className= "bg-blue-700 p-3 flex items-center" >
         <a className = "text-gray-900 text-lg text-white" href="#home">Mission Control Home</a>
         <div className="ml-auto flex items-center gap-3">
-          <SettingsButton />
+          <SettingsButton onToggleSettings={onToggleSettings} />
           <FullscreenButton />
         </div >
     </div>
@@ -62,9 +64,10 @@ export function FullscreenButton() {
   </button>
   )
 }
-export function SettingsButton() {
+export function SettingsButton({ onToggleSettings }: { onToggleSettings: () => void }) {
   const toggleSettings = () => {
   console.log("Toggling settings.");
+  onToggleSettings();
 };
   
   return(
