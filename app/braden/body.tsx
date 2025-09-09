@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 
 
 
-const SLIDER_COUNT = 5;
+const SLIDER_COUNT = 4;
 
 export function Body() {
     return (
@@ -46,7 +46,7 @@ export function Video() {
 export default function MultiSliders() {
   // keep all slider values in one array
   const [grid, setGrid] = React.useState(
-    Array.from({ length: 5 }, () => [0, 50, 75])
+    Array.from({ length: SLIDER_COUNT }, () => [0, 50, 75])
   );
 
 const handleChange = (index: number, newValue: number) =>
@@ -63,7 +63,20 @@ const handleChange = (index: number, newValue: number) =>
       handleChange(i, newValue);
     }
     };
-
+const updateMin = (index: number, differential: number) =>
+    setGrid((prev) => {
+        const copy = [...prev];
+        copy[index] = [...copy[index]];
+        copy[index][0] = copy[index][0] + differential;
+        return copy;
+    });
+    const updateMax = (index: number, differential: number) =>
+    setGrid((prev) => {
+        const copy = [...prev];
+        copy[index] = [...copy[index]];
+        copy[index][2] = copy[index][2] + differential;
+        return copy;
+    });
   return (
     <Box sx={{ width: 350, display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Box sx={{display: "flex", flexDirection: "row"}}>
@@ -76,13 +89,18 @@ const handleChange = (index: number, newValue: number) =>
       {grid.map((row, rowIndex) => (
         <Box key={rowIndex}>
           <Typography variant="subtitle2">Control #{rowIndex + 1}</Typography>
-          <Slider
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Button variant="contained" onClick={() => updateMin(rowIndex,-5)}>MIN -</Button>
+          <Button variant="contained" onClick={() => updateMin(rowIndex,5)}>MIN +</Button>
+          <Button variant="contained" onClick={() => updateMax(rowIndex,-5)}>MAX -</Button>
+          <Button variant="contained" onClick={() => updateMax(rowIndex,5)}>MAX +</Button>
+          </Box>
+            <Slider
             step={2.5}
             value={row[1]}
             valueLabelDisplay="auto"
             min={row[0]}
             max={row[2]}
-
             onChange={(_, newValue) => handleChange(rowIndex, newValue as number)}
           />
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
