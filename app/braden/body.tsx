@@ -46,7 +46,7 @@ export function Video() {
 export default function MultiSliders({ settingsEnabled }: { settingsEnabled: boolean }) {
   // keep all slider values in one array
   const [grid, setGrid] = React.useState(
-    Array.from({ length: SLIDER_COUNT }, () => [0, 50, 75])
+    Array.from({ length: SLIDER_COUNT }, () => [0, 50, 100])
   );
 
 const handleChange = (index: number, newValue: number) =>
