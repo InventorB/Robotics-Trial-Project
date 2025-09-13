@@ -13,12 +13,24 @@ import Stack from '@mui/material/Stack';
 
 const SLIDER_COUNT = 5;
 
-export function Body({ settingsEnabled }: { settingsEnabled: boolean }) {
+export function Body({ settingsEnabled,}: { settingsEnabled: boolean}) {
+    // react hook for multi-camera switching
+  const [camID, setCamId] = React.useState(0);
+    // main function for body code.
     return (
         <div className="flex h-screen">
             <div className="flex-[2_1_0%] min-w-0 overflow-hidden p-4 bg-blue-300">
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button variant="contained" color="warning" onClick={() => setCamId(0)}>CAM1</Button>
+            <Button variant="contained" color="warning" onClick={() => setCamId(1)}>CAM2</Button>
+            </Box>
             <h1 className="flex items-center justify-center pb-6 text-xl">Livestream Demo</h1>
-            <Video />
+            { (camID == 0) ? (
+            <Video1 />
+            ) : null }
+            { (camID == 1) ? (
+            <Video2 />
+            ) : null }
             </div>
             <div className="flex-[1_1_0%] min-w-0 overflow-hidden p-4 bg-red-300">
                 <h1 className="flex items-center justify-center pb-6 text-xl">Controls</h1>
@@ -38,18 +50,27 @@ export function Braden() {
     </div>
     );
 }
-export function Video() {
+export function Video1() {
     return(
-        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/4TIpitPIsPA?si=VJkDSUyuFRcKcYtO?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/4TIpitPIsPA?si=VJkDSUyuFRcKcYtO?autoplay=1" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen></iframe>
+    )
+}
+export function Video2() {
+    return(
+        <iframe width="100%" height="80%" src="https://www.youtube.com/embed/k57aOn5JluY?si=37XpMWZiJqVo8khT?autoplay=1" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen></iframe>
     )
 }
 export default function MultiSliders({ settingsEnabled }: { settingsEnabled: boolean }) {
   // keep all slider values in one array
+  
+  
+  // Uses a 5x3 array to store min, current, max for each slider
   const [grid, setGrid] = React.useState(
     Array.from({ length: SLIDER_COUNT }, () => [0, 50, 100])
   );
 
-const handleChange = (index: number, newValue: number) =>
+// update the value of a specific slider
+  const handleChange = (index: number, newValue: number) =>
     setGrid((prev) => {
         const copy = [...prev];
         copy[index] = [...copy[index]];
@@ -57,12 +78,13 @@ const handleChange = (index: number, newValue: number) =>
         return copy;
     });
 
-
+// control button method to change all sliders to a specific value
   const changeAll = (newValue: number) => {
     for(var i = 0; i < SLIDER_COUNT; i++) {
       handleChange(i, newValue);
     }
     };
+    // update min and max of a slider
 const updateMin = (index: number, differential: number) =>
     setGrid((prev) => {
         const copy = [...prev];
@@ -90,6 +112,7 @@ const updateMin = (index: number, differential: number) =>
         <Box key={rowIndex}>
           <Typography variant="subtitle2">Control #{rowIndex + 1}</Typography>
           {settingsEnabled ? (
+          // add and subtract buttons from min and max
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button variant="contained" color="error" onClick={() => updateMin(rowIndex,-5)}>MIN -</Button>
           <Button variant="contained" color="success" onClick={() => updateMin(rowIndex,5)}>MIN +</Button>
