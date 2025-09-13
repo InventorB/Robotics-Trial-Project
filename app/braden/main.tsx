@@ -3,7 +3,7 @@ import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import SettingsIcon from "@mui/icons-material/Settings";
 import InfoIcon from '@mui/icons-material/Info';
 
-// previos files
+// previous files
 import { Welcome } from "../welcome/Welcome";
 import { Body } from "../braden/body";
 // react hooks
@@ -28,7 +28,7 @@ export function Main() {
     </div>
   );
 }
-
+// all the top menu button calling the functions below
 export function Topbar({ onToggleSettings, onToggleBSettings }: { onToggleSettings: () => void; onToggleBSettings: () => void }) {
     return(
     <div className= "bg-blue-700 p-3 flex items-center" >
@@ -41,6 +41,7 @@ export function Topbar({ onToggleSettings, onToggleBSettings }: { onToggleSettin
     </div>
     );
 }
+// for now the connected is static, but in a real project could be obtained from the backend for robot communication
 export function BottomBar() {
     return(
     <div className= "fixed bottom-0 left-0 w-full bg-orange-500 p-3 flex items-center" >
@@ -52,15 +53,14 @@ export function BottomBar() {
 }
 
 export function FullscreenButton() {
+  // getting the status is far easier than storing it in a react state
   const toggleFullscreen = () => {
-  console.log("Toggling fullscreen.");
   if (document.fullscreenElement == null) {
   document.documentElement.requestFullscreen();
   } else {
   document.exitFullscreen();
   }
 };
-  
   return(
   <button onClick={toggleFullscreen}>
   <AspectRatioIcon className="inline-flex"/>
@@ -69,7 +69,6 @@ export function FullscreenButton() {
 }
 export function SettingsButton({ onToggleSettings }: { onToggleSettings: () => void }) {
   const toggleSettings = () => {
-  console.log("Toggling settings.");
   onToggleSettings();
 };
   

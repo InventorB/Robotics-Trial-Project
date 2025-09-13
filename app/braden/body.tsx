@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 
 //mui presets
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 
 
 
@@ -43,13 +42,7 @@ export function Body({ settingsEnabled,}: { settingsEnabled: boolean}) {
     )
 }
 
-export function Braden() {
-    return (
-    <div className="flex items-center justify-center pt-3 pb-6 text-3xl">
-      <h1>"Braden was here"</h1>
-    </div>
-    );
-}
+
 export function Video1() {
     return(
         <iframe width="100%" height="80%" src="https://www.youtube.com/embed/4TIpitPIsPA?si=VJkDSUyuFRcKcYtO?autoplay=1" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen></iframe>
@@ -62,7 +55,6 @@ export function Video2() {
 }
 export default function MultiSliders({ settingsEnabled }: { settingsEnabled: boolean }) {
   // keep all slider values in one array
-  
   
   // Uses a 5x3 array to store min, current, max for each slider
   const [grid, setGrid] = React.useState(
@@ -84,7 +76,7 @@ export default function MultiSliders({ settingsEnabled }: { settingsEnabled: boo
       handleChange(i, newValue);
     }
     };
-    // update min and max of a slider
+    // update min and max of a slider by copying old values and changing only the min or max
 const updateMin = (index: number, differential: number) =>
     setGrid((prev) => {
         const copy = [...prev];
@@ -102,6 +94,7 @@ const updateMin = (index: number, differential: number) =>
   return (
     <Box sx={{ width: 350, display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        {/* warning color is orange */}
             <Button variant="contained" color="warning" onClick={() => changeAll(0)}>0</Button>
             <Button variant="contained" color="warning" onClick={() => changeAll(25)}>25</Button>
             <Button variant="contained" color="warning" onClick={() => changeAll(50)}>50</Button>
@@ -111,8 +104,9 @@ const updateMin = (index: number, differential: number) =>
       {grid.map((row, rowIndex) => (
         <Box key={rowIndex}>
           <Typography variant="subtitle2">Control #{rowIndex + 1}</Typography>
+          {/* show settings buttons if settingsEnabled is true */}
           {settingsEnabled ? (
-          // add and subtract buttons from min and max
+          // add and subtract buttons from min and max 
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button variant="contained" color="error" onClick={() => updateMin(rowIndex,-5)}>MIN -</Button>
           <Button variant="contained" color="success" onClick={() => updateMin(rowIndex,5)}>MIN +</Button>
@@ -129,7 +123,8 @@ const updateMin = (index: number, differential: number) =>
             onChange={(_, newValue) => handleChange(rowIndex, newValue as number)}
           />
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography
+          {/* clickable min and max values */}
+          <Typography
               variant="body2"
               onClick={() => handleChange(rowIndex, row[0])}
               sx={{ cursor: 'pointer' }}
