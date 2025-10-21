@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - main  # triggers on main branch
+      - master  # triggers on main branch
 
 jobs:
   deploy:
